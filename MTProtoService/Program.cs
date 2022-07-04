@@ -1,5 +1,6 @@
 ﻿using TelegramMTProto;
 
+
 var ping = Environment.GetEnvironmentVariable("ping");
 if (ping != null) Ping(ping);
 
@@ -10,7 +11,7 @@ while (true)
         Console.WriteLine("Starting ..");
 
         var secret = Environment.GetEnvironmentVariable("secret") ?? throw new Exception("Secret can't be null.");
-        var port = int.Parse(Environment.GetEnvironmentVariable("port") ?? Environment.GetEnvironmentVariable("PORT") ?? Environment.GetEnvironmentVariable("$PORT") ?? throw new Exception("Port can't be null."));
+        var port = int.Parse(Environment.GetEnvironmentVariable("$PORT") ?? Environment.GetEnvironmentVariable("PORT") ?? Environment.GetEnvironmentVariable("port") ?? throw new Exception("Port can't be null."));
         var ip = Environment.GetEnvironmentVariable("ip") ?? "default";
 
         TelegramMTProtoServer protoServer = new TelegramMTProtoServer(secret, port, ip);
@@ -36,9 +37,17 @@ static Task Ping(string host)
         {
             while (true)
             {
-                Console.WriteLine("Ping {0}", host);
-                await client.GetStringAsync(host);
+                try
+                {
+                    Console.WriteLine("Ping {0}", host);
+                    await client.GetStringAsync(host);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
                 await Task.Delay(timespan);
+
             }
         }
     });
