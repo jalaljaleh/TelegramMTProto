@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MTProtoService": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

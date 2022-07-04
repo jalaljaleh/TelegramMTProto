@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  mtprotoservice:
+    image: ${DOCKER_REGISTRY-}mtprotoservice
+    build:
+      context: .
+      dockerfile: MTProtoService/Dockerfile
